@@ -1,0 +1,19 @@
+spring.profiles: prod
+
+server.host: http://localhost:8080
+app.host: http://localhost:4200
+
+
+root:
+  datasource:
+    url: mongodb://localhost:27017/ocr_main
+    username: root
+    password: root
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: ocr_main
+      username:

@@ -1,0 +1,38 @@
+app:
+  name: ocr-api
+
+rootUrl: http://localhost:8080
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+jwt:
+  header: Authorization
+  expires_in: 21600000 # 6 hours
+  mobile_expires_in: 0 # unlimited
+  secret: 9wY12d%*JKflQ
+
+logging:
+  file: logs/api.log
+  max-size: 50MB
+  max-history: 20
+  pattern:
+    console: "%d %-5level %logger : %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  level:
+    org.springframework.web: DEBUG
+    com.ocrapi: DEBUG
+
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+file:
+  upload-dir: /files/uploads
+
+

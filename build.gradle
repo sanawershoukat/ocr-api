@@ -1,0 +1,59 @@
+plugins {
+	id 'org.springframework.boot' version '2.1.4.RELEASE'
+	id 'java'
+}
+
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+
+	compile('org.springframework.boot:spring-boot-starter-security')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+	// https://mvnrepository.com/artifact/org.apache.commons/commons-text
+	compile group: 'org.apache.commons', name: 'commons-text', version: '1.6'
+
+
+	// https://mvnrepository.com/artifact/org.springframework.mobile/spring-mobile-device
+    compile group: 'org.springframework.mobile', name: 'spring-mobile-device', version: '1.1.3.RELEASE'
+
+    compile group: 'io.jsonwebtoken', name: 'jjwt', version:'0.6.0'
+
+	// https://mvnrepository.com/artifact/net.sourceforge.tess4j/tess4j
+	compile group: 'net.sourceforge.tess4j', name: 'tess4j', version: '4.0.0'
+	// https://mvnrepository.com/artifact/com.github.jai-imageio/jai-imageio-core
+	compile group: 'com.github.jai-imageio', name: 'jai-imageio-core', version: '1.3.0'
+	// https://mvnrepository.com/artifact/net.java.dev.jna/jna
+	compile group: 'net.java.dev.jna', name: 'jna', version: '5.2.0'
+	// https://mvnrepository.com/artifact/commons-io/commons-io
+	compile group: 'commons-io', name: 'commons-io', version: '2.4'
+	// https://mvnrepository.com/artifact/net.sourceforge.lept4j/lept4j
+	compile group: 'net.sourceforge.lept4j', name: 'lept4j', version: '1.10.0'
+	// http://asprise.com/royalty-free-library/java-ocr-api-overview.html
+	compile group: 'com.asprise.ocr',name: 'java-ocr-api', version: '[15,)'
+}
