@@ -24,6 +24,7 @@ import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -127,7 +128,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowCredentials(true);
 
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type", "Access-Control-Allow-Origin"));
+        configuration.setAllowedHeaders(Arrays.asList("X-Requested-With", "Origin", "Content-Type", "Accept", "Authorization"));
         configuration.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin",
                 "Access-Control-Allow-Methods",
                 "Access-Control-Allow-Headers",

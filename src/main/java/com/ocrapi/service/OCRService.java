@@ -1,5 +1,6 @@
 package com.ocrapi.service;
 
+import com.ocrapi.controller.OCRController;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,5 +13,5 @@ public interface OCRService {
 
     String processOCR();
 
-    Map processFile(MultipartFile multipartFile);
+    Map processFile(MultipartFile[] multipartFile, String parserName, String parserType, String createdBy);
 }

@@ -1,6 +1,7 @@
 package com.ocrapi.service.impl;
 
 import com.asprise.ocr.Ocr;
+import com.ocrapi.controller.OCRController;
 import com.ocrapi.model.OcrModel;
 import com.ocrapi.service.OCRService;
 import com.ocrapi.service.OcrModelService;
@@ -76,19 +77,32 @@ public class OCRServiceImpl implements OCRService {
         return result;
     }
 
-    public Map processFile(MultipartFile multipartFile) {
-        Map<String, Object> result = new HashMap<>();
-        try {
-            File file = utilityService.convertMultiPartToFile(multipartFile);
-            log.info(file.getName());
-            setImage(file.getAbsolutePath());
-            String text = processOCR();
-            long matchRate = checkAndGetModelMatchingPercentage(text);
-            if (matchRate < 90)
-                insertNewModel(text);
+    public Map processFile(MultipartFile[] multipartFiles, String parserName, String parserType, String createdBy) {
 
-            result.put("processed", text);
-            result.put("percentage", matchRate);
+        final boolean consolidated;
+        Map<String, Object> result = new HashMap<>();
+        List<String> listProcessedText = new ArrayList<>();
+        List<Long> listMatchRate = new ArrayList<>();
+
+        try {
+            List<File> fileList = utilityService.convertMultiPartToFile(multipartFiles);
+            consolidated = (fileList != null && fileList.size() > 1);
+
+            fileList.forEach(file -> {
+                log.info(file.getName());
+                setImage(file.getAbsolutePath());
+                String text = processOCR();
+                long matchRate = checkAndGetModelMatchingPercentage(text);
+                if (matchRate < 90)
+                    insertNewModel(text, parserName, parserType, createdBy, consolidated);
+
+                listProcessedText.add(text);
+                listMatchRate.add(matchRate);
+
+            });
+
+            result.put("processed", listProcessedText);
+            result.put("percentage", listMatchRate);
             result.put("result", "success");
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -121,9 +135,13 @@ public class OCRServiceImpl implements OCRService {
         return atomicLong.get();
     }
 
-    void insertNewModel(String text) {
+    void insertNewModel(String text, String parserName, String parserType, String createdBy, boolean consolidated) {
         OcrModel model = new OcrModel();
+        model.setParserName(parserName);
+        model.setParserType(parserType);
         model.setText(text);
+        model.setCreatedBy(createdBy);
+        model.setConsolidated(consolidated);
         model.setCreatedAt(LocalDateTime.now());
         model.setUpdatedAt(LocalDateTime.now());
         ocrModelService.insertModel(model);

@@ -6,7 +6,7 @@ app.host: http://localhost:4200
 
 root:
   datasource:
-    url: mongodb://localhost:27017/ocr_main
+    url: mongodb://localhost:27017/ocr_master
     username: root
     password: root
 
@@ -15,5 +15,5 @@ spring:
     mongodb:
       host: localhost
       port: 27017
-      database: ocr_main
+      database: ocr_master
       username:

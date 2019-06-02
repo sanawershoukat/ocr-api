@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:3000","https://ocr-project-48077.firebaseapp.com"})
 @RequestMapping(value = "/user", produces = MediaType.APPLICATION_JSON_VALUE)
 public class SystemUserController {
 

@@ -14,7 +14,12 @@ public class OcrModel {
 
     @Id
     String id;
+    String parserName;
+    String parserType;
     String text;
+    String createdBy;
+
+    boolean consolidated = false;
 
     public LocalDateTime createdAt;
     public LocalDateTime updatedAt;
